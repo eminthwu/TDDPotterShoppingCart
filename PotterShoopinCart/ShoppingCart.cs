@@ -8,29 +8,53 @@ namespace PotterShoopinCart
     {
         public List<HarryPotter> Books { get; set; }
 
+        private List<int> _Counted { get; set; } = new List<int>();
+
         public int PriceCalc()
-        {
+        {           
             var price = this.Books.Select(b => b.Price).Sum(p => p);
-
-
+           
             if (Books.Count == 2 && Books.Select(b => b.Numero).Distinct().Count() == 2)
             {
-                price = (int)Math.Round(price * 0.95, 0, MidpointRounding.AwayFromZero);
+                price = Discount_5Persent(price);
             }
-            else if(Books.Count == 3 && Books.Select(b=>b.Numero).Distinct().Count() == 3)
+            else if (Books.Count == 3 && Books.Select(b => b.Numero).Distinct().Count() == 3)
             {
-                price = (int)Math.Round(price * 0.9, 0, MidpointRounding.AwayFromZero);
+                price = Discount_10Persent(price);
             }
             else if (Books.Count == 4 && Books.Select(b => b.Numero).Distinct().Count() == 4)
             {
-                price = (int)Math.Round(price * 0.8, 0, MidpointRounding.AwayFromZero);
+                price = Discount_20Persent(price);
             }
             else if (Books.Count == 5 && Books.Select(b => b.Numero).Distinct().Count() == 5)
             {
-                price = (int)Math.Round(price * 0.75, 0, MidpointRounding.AwayFromZero);
+                price = Discount_25Persent(price);
             }
 
+            return price;
+        }
 
+        private static int Discount_25Persent(int price)
+        {
+            price = (int)Math.Round(price * 0.75, 0, MidpointRounding.AwayFromZero);
+            return price;
+        }
+
+        private static int Discount_20Persent(int price)
+        {
+            price = (int)Math.Round(price * 0.8, 0, MidpointRounding.AwayFromZero);
+            return price;
+        }
+
+        private static int Discount_10Persent(int price)
+        {
+            price = (int)Math.Round(price * 0.9, 0, MidpointRounding.AwayFromZero);
+            return price;
+        }
+
+        private static int Discount_5Persent(int price)
+        {
+            price = (int)Math.Round(price * 0.95, 0, MidpointRounding.AwayFromZero);
             return price;
         }
     }

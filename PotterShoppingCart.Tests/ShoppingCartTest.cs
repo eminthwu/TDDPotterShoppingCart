@@ -146,7 +146,7 @@ namespace PotterShoppingCart.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod] 
         public void PriceCalc_第一集x1_第二集x2_第三集x2_460元()
         {
             //arrange
