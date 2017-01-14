@@ -8,53 +8,116 @@ namespace PotterShoopinCart
     {
         public List<HarryPotter> Books { get; set; }
 
-        private List<int> _Counted { get; set; } = new List<int>();
+        private IEnumerable<int> _Caculated { get; set; } = new List<int>();
 
         public int PriceCalc()
-        {           
-            var price = this.Books.Select(b => b.Price).Sum(p => p);
-           
-            if (Books.Count == 2 && Books.Select(b => b.Numero).Distinct().Count() == 2)
+        {
+            var price = 0;
+
+            price += Discount_25Persent();          
+            price += Discount_20Persent();
+            price += Discount_10Persent();
+            price += Discount_5Persent();
+            price += Discount_None();
+
+            return price;
+        }
+
+        private int Discount_25Persent()
+        {
+            var price = 0;
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                      
+                        .GroupBy(b => b.Numero)
+                        .Select(group => new { Numero = group.Key, Count = group.Count() });
+
+            if (books.Count() != 5)
+                return 0;
+
+            var sets = books.Select(b => b.Count).Max();
+            var numeros = books.Select(b => b.Numero).Distinct();
+
+            foreach (var numero in numeros)
             {
-                price = Discount_5Persent(price);
-            }
-            else if (Books.Count == 3 && Books.Select(b => b.Numero).Distinct().Count() == 3)
-            {
-                price = Discount_10Persent(price);
-            }
-            else if (Books.Count == 4 && Books.Select(b => b.Numero).Distinct().Count() == 4)
-            {
-                price = Discount_20Persent(price);
-            }
-            else if (Books.Count == 5 && Books.Select(b => b.Numero).Distinct().Count() == 5)
-            {
-                price = Discount_25Persent(price);
+                var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.75, 0, MidpointRounding.AwayFromZero));
+                _Caculated=_Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
 
             return price;
         }
 
-        private static int Discount_25Persent(int price)
+        private int Discount_20Persent()
         {
-            price = (int)Math.Round(price * 0.75, 0, MidpointRounding.AwayFromZero);
+            var price = 0;
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+                        .GroupBy(b => b.Numero)
+                        .Select(group => new { Numero = group.Key, Count = group.Count() });
+
+            if (books.Count() != 4)
+                return 0;
+
+            var sets = books.Select(b => b.Count).Max();
+            var numeros = books.Select(b => b.Numero).Distinct();
+
+            foreach (var numero in numeros)
+            {
+                var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.8, 0, MidpointRounding.AwayFromZero));
+                _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
+            }
+
             return price;
         }
 
-        private static int Discount_20Persent(int price)
+        private int Discount_10Persent()
         {
-            price = (int)Math.Round(price * 0.8, 0, MidpointRounding.AwayFromZero);
+            var price = 0;
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+                        .GroupBy(b => b.Numero)
+                        .Select(group => new { Numero = group.Key, Count = group.Count() });
+
+            if (books.Count() != 3)
+                return 0;
+
+            var sets = books.Select(b => b.Count).Max();
+            var numeros = books.Select(b => b.Numero).Distinct();
+
+            foreach (var numero in numeros)
+            {
+                var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.9, 0, MidpointRounding.AwayFromZero));
+                _Caculated = _Caculated = this._Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
+            }
+
             return price;
         }
 
-        private static int Discount_10Persent(int price)
+        private int Discount_5Persent()
         {
-            price = (int)Math.Round(price * 0.9, 0, MidpointRounding.AwayFromZero);
+            var price = 0;
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+                        .GroupBy(b => b.Numero)
+                        .Select(group => new { Numero = group.Key, Count = group.Count() });
+
+            if (books.Count() != 2)
+                return 0;
+
+            var sets = books.Select(b => b.Count).Max();
+            var numeros = books.Select(b => b.Numero).Distinct();
+
+            foreach (var numero in numeros)
+            {
+                var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.95, 0, MidpointRounding.AwayFromZero));
+                _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
+            }
+
             return price;
         }
 
-        private static int Discount_5Persent(int price)
+        private int Discount_None()
         {
-            price = (int)Math.Round(price * 0.95, 0, MidpointRounding.AwayFromZero);
+            var price = Books.Where(b => !_Caculated.Contains(b.GetHashCode())).Sum(b => b.Price);
             return price;
         }
     }
