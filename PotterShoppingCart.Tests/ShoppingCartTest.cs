@@ -131,7 +131,7 @@ namespace PotterShoppingCart.Tests
                 Books = new List<HarryPotter>()
                 {
                     {new HarryPotter() {Numero = 1 } },
-                    {new HarryPotter() {Numero = 1 } },
+                    {new HarryPotter() {Numero = 2 } },
                     {new HarryPotter() {Numero = 3 } },
                     {new HarryPotter() {Numero = 3 } },
                 }

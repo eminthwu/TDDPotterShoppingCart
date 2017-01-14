@@ -39,6 +39,8 @@ namespace PotterShoopinCart
             foreach (var numero in numeros)
             {
                 var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                if (caculatedBooks.Count() < sets)
+                    continue;
                 price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.75, 0, MidpointRounding.AwayFromZero));
                 _Caculated=_Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
@@ -62,6 +64,8 @@ namespace PotterShoopinCart
             foreach (var numero in numeros)
             {
                 var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                if (caculatedBooks.Count() < sets)
+                    continue;
                 price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.8, 0, MidpointRounding.AwayFromZero));
                 _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
@@ -85,6 +89,8 @@ namespace PotterShoopinCart
             foreach (var numero in numeros)
             {
                 var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                if (caculatedBooks.Count() < sets)
+                    continue;
                 price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.9, 0, MidpointRounding.AwayFromZero));
                 _Caculated = _Caculated = this._Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
@@ -108,6 +114,8 @@ namespace PotterShoopinCart
             foreach (var numero in numeros)
             {
                 var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
+                if (caculatedBooks.Count() < sets)
+                    continue;
                 price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.95, 0, MidpointRounding.AwayFromZero));
                 _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
