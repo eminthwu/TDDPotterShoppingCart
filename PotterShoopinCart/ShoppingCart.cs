@@ -25,7 +25,11 @@ namespace PotterShoopinCart
             {
                 price = (int)Math.Round(price * 0.8, 0, MidpointRounding.AwayFromZero);
             }
-            
+            else if (Books.Count == 5 && Books.Select(b => b.Numero).Distinct().Count() == 5)
+            {
+                price = (int)Math.Round(price * 0.75, 0, MidpointRounding.AwayFromZero);
+            }
+
 
             return price;
         }
