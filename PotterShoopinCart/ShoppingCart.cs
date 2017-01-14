@@ -11,7 +11,10 @@ namespace PotterShoopinCart
         public int PriceCalc()
         {
             var price = this.Books.Select(b => b.Price).Sum(p => p);
-           
+            if (Books.Count == 2 && Books.Select(b => b.Numero).Distinct().Count() == 2)
+            {
+                price = (int)Math.Round(price * 0.95, 0, MidpointRounding.AwayFromZero);
+            }
 
             return price;
         }
