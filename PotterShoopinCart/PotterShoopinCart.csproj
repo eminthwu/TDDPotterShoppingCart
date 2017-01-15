@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiscountFivePersent .cs" />
     <Compile Include="DiscountTenPersent .cs" />
     <Compile Include="DiscountTwentyFivePercent.cs" />
     <Compile Include="DiscountTwentyPercent.cs" />
