@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiscountTwentyFivePercent.cs" />
+    <Compile Include="DiscountTwentyPercent.cs" />
     <Compile Include="ICaculatePrice.cs" />
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

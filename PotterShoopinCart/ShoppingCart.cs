@@ -25,7 +25,7 @@ namespace PotterShoopinCart
              }
 
             //price += Discount_25Persent();
-            price += Discount_20Persent();
+            //price += Discount_20Persent();
             price += Discount_10Persent();
             price += Discount_5Persent();
             price += Discount_None();
@@ -41,7 +41,8 @@ namespace PotterShoopinCart
         {
             var output = new List<ICaculatePrice>()
             {
-                new DiscountTwentyFivePercent()
+                new DiscountTwentyFivePercent(),
+                new DiscountTwentyPercent()
             };
 
             return output;

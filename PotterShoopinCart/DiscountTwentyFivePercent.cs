@@ -7,9 +7,16 @@ namespace PotterShoopinCart
 {
     public class DiscountTwentyFivePercent : ICaculatePrice
     {
+        public double DiscountValue
+        {
+            get
+            {
+                return 0.75;
+            }
+        }
+
         public Tuple<int, IEnumerable<int>> CaculatePrice(IEnumerable<HarryPotter> Books, ref IEnumerable<int> caculated)
         {
-
             var _Caculated = caculated == null ? new List<int>() : caculated;
             var price = 0;
             var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))
@@ -27,7 +34,7 @@ namespace PotterShoopinCart
                 var caculatedBooks = Books.Where(b => b.Numero == numero).Take(sets);
                 if (caculatedBooks.Count() < sets)
                     continue;
-                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.75, 0, MidpointRounding.AwayFromZero));
+                price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * this.DiscountValue, 0, MidpointRounding.AwayFromZero));
                 _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
 
