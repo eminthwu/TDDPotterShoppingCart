@@ -12,9 +12,19 @@ namespace PotterShoopinCart
 
         public int PriceCalc()
         {
-            var price = 0;
+            IEnumerable<ICaculatePrice> discounts = GetDiscounts();
 
-            price += Discount_25Persent();          
+            var price = 0;
+            
+            foreach (var discount in discounts)
+            {
+                IEnumerable<int> caculated = _Caculated;
+                var result = discount.CaculatePrice(Books, ref caculated);
+                price += result.Item1;
+                _Caculated = _Caculated.Concat(result.Item2).Distinct();
+             }
+
+            //price += Discount_25Persent();
             price += Discount_20Persent();
             price += Discount_10Persent();
             price += Discount_5Persent();
@@ -23,10 +33,24 @@ namespace PotterShoopinCart
             return price;
         }
 
+        /// <summary>
+        /// 目前有在使用的折扣種類並依照優先順序回傳,順位高的在前
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerable<ICaculatePrice> GetDiscounts()
+        {
+            var output = new List<ICaculatePrice>()
+            {
+                new DiscountTwentyFivePercent()
+            };
+
+            return output;
+        }
+
         private int Discount_25Persent()
         {
             var price = 0;
-            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                      
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))
                         .GroupBy(b => b.Numero)
                         .Select(group => new { Numero = group.Key, Count = group.Count() });
 
@@ -42,7 +66,7 @@ namespace PotterShoopinCart
                 if (caculatedBooks.Count() < sets)
                     continue;
                 price += caculatedBooks.Sum(b => (int)Math.Round(b.Price * 0.75, 0, MidpointRounding.AwayFromZero));
-                _Caculated=_Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
+                _Caculated = _Caculated.Concat(caculatedBooks.Select(b => b.GetHashCode()));
             }
 
             return price;
@@ -51,7 +75,7 @@ namespace PotterShoopinCart
         private int Discount_20Persent()
         {
             var price = 0;
-            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))
                         .GroupBy(b => b.Numero)
                         .Select(group => new { Numero = group.Key, Count = group.Count() });
 
@@ -76,7 +100,7 @@ namespace PotterShoopinCart
         private int Discount_10Persent()
         {
             var price = 0;
-            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))
                         .GroupBy(b => b.Numero)
                         .Select(group => new { Numero = group.Key, Count = group.Count() });
 
@@ -101,7 +125,7 @@ namespace PotterShoopinCart
         private int Discount_5Persent()
         {
             var price = 0;
-            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))                       
+            var books = Books.Where(b => !_Caculated.Contains(b.GetHashCode()))
                         .GroupBy(b => b.Numero)
                         .Select(group => new { Numero = group.Key, Count = group.Count() });
 
