@@ -17,14 +17,19 @@ namespace PotterShoppingCart
 
             if (Books.Count == 2 && distinctSeq == 2)
             {
-                return (int)Math.Round(Books.Sum(b => b.Price) * 0.95, 1, MidpointRounding.AwayFromZero);
+                return GetDiscountPrice(0.95);
             }
             else if (Books.Count == 3 && distinctSeq == 3)
             {
-                return (int)Math.Round(Books.Sum(b => b.Price) * 0.9, 1, MidpointRounding.AwayFromZero);
+                return GetDiscountPrice(0.9);
             }
 
             return this.Books.Sum(b => b.Price);
+        }
+
+        private int GetDiscountPrice(double discountRatio)
+        {
+            return (int)Math.Round(Books.Sum(b => b.Price) * discountRatio, 1, MidpointRounding.AwayFromZero);
         }
     }
 }
