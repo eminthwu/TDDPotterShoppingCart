@@ -18,7 +18,7 @@ namespace PotterShoppingCart
                 return (int)Math.Round(Books.Sum(b => b.Price) * 0.95, 1, MidpointRounding.AwayFromZero);
             }
 
-            return this.Books.Sum(b => b.Price);
+            return this.Books.Sum(b => b.Price); 
         }
     }
 }
