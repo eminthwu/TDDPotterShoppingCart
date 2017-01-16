@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PotterShoopinCart
 {
-    public class DiscountTwentyPercent : ICaculatePrice
+    public class DiscountTwentyPercent : ICalculatePrice
     {
         public double DiscountValue
         {

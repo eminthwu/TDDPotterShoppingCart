@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PotterShoopinCart
 {
-    public class DiscountTenPersent : ICaculatePrice
+    public class DiscountTenPersent : ICalculatePrice
     {
         public double DiscountValue
         {
@@ -15,7 +15,7 @@ namespace PotterShoopinCart
             }
         }        
 
-        Tuple<int, IEnumerable<int>> ICaculatePrice.CaculatePrice(IEnumerable<HarryPotter> Books, ref IEnumerable<int> caculated)
+        Tuple<int, IEnumerable<int>> ICalculatePrice.CaculatePrice(IEnumerable<HarryPotter> Books, ref IEnumerable<int> caculated)
         {
             var _Caculated = caculated == null ? new List<int>() : caculated;
             var price = 0;

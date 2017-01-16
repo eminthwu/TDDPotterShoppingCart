@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PotterShoopinCart
 {
-    interface ICaculatePrice
+    interface ICalculatePrice
     {
         double DiscountValue { get; }
 

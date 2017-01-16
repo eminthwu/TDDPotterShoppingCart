@@ -11,7 +11,7 @@ namespace PotterShoopinCart
 
         public int PriceCalc()
         {
-            IEnumerable<ICaculatePrice> discounts = GetDiscounts();
+            IEnumerable<ICalculatePrice> discounts = GetDiscounts();
 
             var price = 0;
 
@@ -32,9 +32,9 @@ namespace PotterShoopinCart
         /// 目前有在使用的折扣種類並依照優先順序回傳,順位高的在前
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ICaculatePrice> GetDiscounts()
+        private IEnumerable<ICalculatePrice> GetDiscounts()
         {
-            var output = new List<ICaculatePrice>()
+            var output = new List<ICalculatePrice>()
             {
                 new DiscountTwentyFivePercent(),
                 new DiscountTwentyPercent(),
