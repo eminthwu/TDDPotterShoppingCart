@@ -43,7 +43,7 @@
     <Compile Include="DiscountTenPersent .cs" />
     <Compile Include="DiscountTwentyFivePercent.cs" />
     <Compile Include="DiscountTwentyPercent.cs" />
-    <Compile Include="ICaculatePrice.cs" />
+    <Compile Include="ICalculatePrice.cs" />
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
