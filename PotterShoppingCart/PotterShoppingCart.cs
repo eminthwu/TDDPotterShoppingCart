@@ -13,7 +13,7 @@ namespace PotterShoppingCart
 
         public int GetPrice()
         {
-            throw new NotImplementedException();
+            return this.Books.Sum(b => b.Price);
         }
     }
 }
