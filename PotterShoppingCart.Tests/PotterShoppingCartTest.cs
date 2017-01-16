@@ -149,7 +149,31 @@ namespace PotterShoppingCart.Tests
 
             //assert
             Assert.AreEqual(excepted, actual);
+        }
 
+        [TestMethod]
+        public void GetPrice_第一集x1_第二集x2_第三集x2_460元()
+        {
+            //arrange
+            PotterShoppingCart cart = new PotterShoppingCart()
+            {
+                Books = new List<HarryPotter>()
+                {
+                    new HarryPotter() { Seq = "1" },
+                    new HarryPotter() { Seq = "2" },
+                    new HarryPotter() { Seq = "2" },
+                    new HarryPotter() { Seq = "3" },
+                    new HarryPotter() { Seq = "3" }
+                }
+            };
+
+            var excepted = 460;
+
+            //act
+            int actual = cart.GetPrice();
+
+            //assert
+            Assert.AreEqual(excepted, actual);
         }
     }
 }
