@@ -11,25 +11,33 @@ namespace PotterShoppingCart
     {
         public List<HarryPotter> Books { get; set; }
 
+        /// <summary>
+        /// 優惠套數與折扣數定義在此，折扣順位高的要定義在前
+        /// key: sets; value: discount ratio
+        /// </summary>
+        private Dictionary<int, double> _DiscountRatio
+        {
+            get
+            {
+                return new Dictionary<int, double>()
+                {
+                    { 1, 1 },
+                    { 2, 0.95 },
+                    { 3, 0.9 }
+                };
+            }
+        }
+
         public int GetPrice()
         {
             var distinctSeq = Books.Select(b => b.Seq).Distinct().Count();
 
-            if (Books.Count == 2 && distinctSeq == 2)
-            {
-                return GetDiscountPrice(0.95);
-            }
-            else if (Books.Count == 3 && distinctSeq == 3)
-            {
-                return GetDiscountPrice(0.9);
-            }
-
-            return this.Books.Sum(b => b.Price);
+            return GetDiscountPrice(distinctSeq);
         }
 
-        private int GetDiscountPrice(double discountRatio)
+        private int GetDiscountPrice(int particularSets)
         {
-            return (int)Math.Round(Books.Sum(b => b.Price) * discountRatio, 1, MidpointRounding.AwayFromZero);
+            return (int)Math.Round(Books.Sum(b => b.Price) * _DiscountRatio[particularSets], 0, MidpointRounding.AwayFromZero);
         }
     }
 }
